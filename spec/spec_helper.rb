@@ -1,4 +1,4 @@
-require_relative './setup_test_database'
+require_relative 'setup_test_database'
 
 ENV['ENVIRONMENT'] = 'test'
 
