@@ -3,7 +3,7 @@ require 'pg'
 class Bookmark
 
   attr_reader :id, :title, :url
-  
+
   def initialize(id:, title:, url:)
     @id = id
     @title = title
@@ -18,7 +18,7 @@ class Bookmark
     end
     result = conn.exec("SELECT * FROM bookmarks;")
     result.map do |bm|
-      Bookmark.new(id: bookmark['id'], title: bookmark['title'], url: bookmark['url'])
+      Bookmark.new(id: bm['id'], title: bm['title'], url: bm['url'])
     end
   end
 
@@ -28,6 +28,6 @@ class Bookmark
     else
       conn = PG.connect(dbname: 'bookmark_manager')
     end
-    conn.exec("INSERT INTO bookmarks (title, url) VALUES('#{title}', '#{url}') RETURNING id, url, title")
+    conn.exec("INSERT INTO bookmarks (url, title) VALUES('#{url}', '#{title}') RETURNING id, url, title")
   end
 end
